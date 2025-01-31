@@ -1,8 +1,11 @@
 version: '3.8'
 
+name: synthea-generator
+
 services:
   web:
     build: .
+    container_name: synthea-web
     ports:
       - "8000:8000"
     volumes:
@@ -13,6 +16,12 @@ services:
       - PYTHONPATH=/app
       - JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64
     restart: unless-stopped
+    networks:
+      - synthea-net
+
+networks:
+  synthea-net:
+    name: synthea-net
 
 volumes:
   synthea_output:
